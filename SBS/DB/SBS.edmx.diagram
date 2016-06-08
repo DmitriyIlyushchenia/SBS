@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a4a6f426353b41d8a08f40377da51cc9" Name="Diagram1">
+        <EntityTypeShape EntityType="SBSModel.Clients" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.DocumentCell" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.DocumentRow" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.Documents" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.DocumentsStates" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.LoginData" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.PersonalAccount" Width="1.5" PointX="8" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.ReportCells" Width="1.5" PointX="12.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.ReportRows" Width="1.5" PointX="10.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.Reports" Width="1.5" PointX="8" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.Settings" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.UserRights" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SBSModel.Users" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="SBSModel.FK_PersonalAccount_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_Reports_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_DocumentCell_DocumentRow" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_Documents_DocumentsStates" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_Documents_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_Users_LoginData" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_ReportCells_ReportRows" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_ReportRows_Reports" ManuallyRouted="false" />
+        <AssociationConnector Association="SBSModel.FK_Users_UserRights" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

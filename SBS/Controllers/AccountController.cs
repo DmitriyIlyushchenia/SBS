@@ -8,10 +8,18 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using SBS.DB;
+using SBS.Helpers;
 using SBS.Models;
 
 namespace SBS.Controllers
 {
+    public enum LoginStates
+    {
+        Ok = 1,
+        Failed = 2
+    };
+
     [Authorize]
     public class AccountController : Controller
     {
@@ -45,15 +53,27 @@ namespace SBS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                using (var db = new SBSEntities())
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    try
+                    {
+                        if (UserLoginHelper.TryLogin(model) ==
+                            LoginStates.Ok)
+                        {
+                            Session["UserId"] = UserLoginHelper.UserModel.Id;
+                            Session["RightId"] = (int) UserLoginHelper.UserModel.Right;
+
+                            return View("~/Views/Home/Index.cshtml", UserLoginHelper.UserModel);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Invalid username or password.");
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        throw exception;
+                    }
                 }
             }
 
@@ -289,8 +309,10 @@ namespace SBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            Session["UserId"] = null;
+            Session["RightId"] = null;
+
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -378,7 +400,8 @@ namespace SBS.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
             {
             }
 
@@ -404,5 +427,11 @@ namespace SBS.Controllers
             }
         }
         #endregion
+
+        public void LogOut()
+        {
+            Session["UserId"] = null;
+            RedirectToAction("Login", "Account");
+        }
     }
 }

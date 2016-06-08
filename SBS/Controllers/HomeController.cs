@@ -10,6 +10,12 @@ namespace SBS.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["UserId"] == null)
+            {
+                Url.Action("Login", "Account");
+                return View("~/Views/Account/Login.cshtml");
+            }
+
             return View();
         }
 
@@ -25,6 +31,16 @@ namespace SBS.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult FileUpload()
+        {
+            return PartialView("~/Views/Partial/FileUpload.cshtml");
+        }
+
+        public ActionResult SourceDocumentsList()
+        {
+            return PartialView("~/Views/Partial/SourceDocumentsList.cshtml");
         }
     }
 }
